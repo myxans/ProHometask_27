@@ -8,14 +8,21 @@ const array = [
 function mapping(array, callback) {
     let newArray = [];
     for (let key of array) {
-        if (typeof array == 'object') {
-            newArray.push(callback(key))
-        } else {alert('sorry')}
+        switch (true) {
+            case Array.isArray(array):
+                newArray.push(callback(key));
+                break;
+            case typeof array == 'object':
+                newArray.push(callback(key));
+                break;
+            default:
+                console.log('sorry')
+        }
     }
     return newArray;
 }
 
-const callback = (item) => item.price;
+const callback = (item) => item;
 const callback2 = (item) => item.price > 1000;
 
 console.log(mapping(array, callback));
@@ -28,9 +35,9 @@ function filter(array, callback) {
     let wrong = [];
     for (let key of array) {
         if (callback(key) == true) {
-            right.push(callback(key))
+            right.push(key)
         } if (callback(key) == false) {
-            wrong.push(callback(key))
+            wrong.push(key)
         }
     }
     return {
