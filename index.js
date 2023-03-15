@@ -7,25 +7,37 @@ const array = [
 //mapping
 function mapping(array, callback) {
     let newArray = [];
-    for (let key of array) {
-        switch (true) {
-            case Array.isArray(array):
-                newArray.push(callback(key));
-                break;
-            case typeof array == 'object':
-                newArray.push(callback(key));
-                break;
-            default:
-                console.log('sorry')
-        }
-    }
+    if (array == null) {
+        alert('sorry')
+    } else (array.forEach(element => {
+        if (Array.isArray(array)) {
+            newArray.push(callback(element))
+        } else if (typeof array == 'object') {
+            newArray.push(callback(element))
+        } else {alert('sorry')}
+    }));
     return newArray;
 }
 
-const callback = (item) => item;
+
+/*function mapping(array, callback) {
+    let newArray = [];
+    for (let key of array) {
+        if (Array.isArray(array)) {
+            newArray.push(callback(key))
+        } else if (array == null) {
+            alert('sorry')
+        } else if (typeof array == 'object') {
+            newArray.push(callback(key))
+        } else {alert('sorry')}
+    }
+    return newArray;
+}*/
+
+const callback = (item) => item.year;
 const callback2 = (item) => item.price > 1000;
 
-console.log(mapping(array, callback));
+console.log(mapping(null, callback));
 console.log(mapping(array, callback2));
 console.log(array);
 
