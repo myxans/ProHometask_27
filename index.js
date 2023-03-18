@@ -5,34 +5,24 @@ const array = [
 ];
 
 //mapping
-function mapping(array, callback) {
-    let newArray = [];
-    if (array == null) {
-        alert('sorry')
-    } else (array.forEach(element => {
-        if (Array.isArray(array)) {
-            newArray.push(callback(element))
-        } else if (typeof array == 'object') {
-            newArray.push(callback(element))
-        } else {alert('sorry')}
-    }));
-    return newArray;
-}
-
-
-/*function mapping(array, callback) {
-    let newArray = [];
-    for (let key of array) {
-        if (Array.isArray(array)) {
-            newArray.push(callback(key))
-        } else if (array == null) {
-            alert('sorry')
-        } else if (typeof array == 'object') {
-            newArray.push(callback(key))
-        } else {alert('sorry')}
+function mapping (array, callback) {
+    if ((typeof array === 'object' && array !== null) && !Array.isArray(array)) {
+        const resObj = {};
+        for (let key in objectArray) {
+            Object.assign(resObj,callback(array[key], key, array));
+        }
+        return resObj;
+    } else if (Array.isArray(array)) {
+        const resArr = [];
+        for (let i = 0; i < array.length; i++) {
+            resArr.push(callback(array[i], i, array));
+        }
+        return resArr;
+    }  else {
+        return alert('Sorry');
     }
-    return newArray;
-}*/
+
+}
 
 const callback = (item) => item.year;
 const callback2 = (item) => item.price > 1000;
